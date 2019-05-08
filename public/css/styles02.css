@@ -1,0 +1,114 @@
+html, body {
+	height: 100%;
+	font-family: 'Josefin Sans', sans-serif;
+	
+	
+}
+.navcolor
+{
+    
+    background: black;
+}
+.navcolor a
+{
+    color: white;
+   margin-left: 40px;
+   
+}
+
+.product-item .pi-pic {
+    position: relative;
+    display: block;
+   
+}
+.product-item .pi-pic img {
+    width: 100%;
+    }
+.product-item .pi-links {
+	width: 100%;
+	position: absolute;
+	right: 0;
+	bottom: 18px;
+	z-index: 9;
+	padding-right: 15px;
+	text-align: right;
+}
+.product-item .pi-links a {
+	display: inline-table;
+	width: 36px;
+	height: 36px;
+	background: #fff;
+	border-radius: 60px;
+	font-size: 18px;
+	line-height: 18px;
+	padding-top: 9px;
+	overflow: hidden;
+	color: thistle;
+	
+	-webkit-box-shadow: 1px 0 32px rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 0 32px rgba(0, 0, 0, 0.2);
+	-webkit-transition: all 0.4s ease;
+	-o-transition: all 0.4s ease;
+	transition: all 0.4s ease;
+	text-align: center;
+}
+.product-item .pi-text {
+	padding-top: 22px;
+	height: 87px;
+}
+
+.product-item .pi-text h6 {
+	float: right;
+	padding-left: 40px;
+	overflow: hidden;
+	font-weight: 700;
+	color: #111111;
+}
+
+.product-item .pi-text p {
+	font-size: 16px;
+	color: #111111;
+	margin-bottom: 0;
+}
+
+.set-bg {
+    background-image: url("../images/product/banner-bg.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: top center;
+}
+.banner {
+	padding: 50px 34px 47px;
+	position: relative;
+	margin-bottom: 70px;
+}
+
+.banner .tag-new {
+	position: absolute;
+	right: 26px;
+	top: 27px;
+	font-size: 24px;
+	font-weight: 700;
+	color: #fff;
+	background: #50e550;
+	line-height: 1;
+	text-transform: uppercase;
+	padding: 7px 16px 1px;
+	border-radius: 80px;
+}
+.banner span {
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 3px;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.banner h2 {
+	font-size: 48px;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-bottom: 10px;
+	color: #282828;
+}
