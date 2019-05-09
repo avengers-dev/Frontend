@@ -7,20 +7,9 @@ class Login extends Component {
         this.state = {
             email: '',
             matkhau: '',
-            url: '',
             login_fail: false,
-
         }
     }
-    // componentWillMount() {  FirtLoadLogin
-    //     var obj = {
-    //         email : 'admin@gmail.com',
-    //         matkhau : 'admin'
-    //     };
-    //     axios.post('http://localhost:8000/api/login',obj)
-    //     .then(result => console.log(result.data))
-    //     .then(err => console.log(err));
-    // }
     onChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
@@ -35,11 +24,9 @@ class Login extends Component {
             .then(result => {
                 
                 if (result.data.status === 200) {
-                    this.setState({
-                        url: 'danh-sach-giang-day',
-                    });
                     localStorage.setItem('danh_sach_giang_day', JSON.stringify(result.data.data[0]['monday']));
-                    sessionStorage.setItem('tengiangvien', JSON.stringify(result.data.data[0]['hoten']))
+                    sessionStorage.setItem('tengiangvien', JSON.stringify(result.data.data[0]['hoten']));
+                    this.props.history.push('danh-sach-giang-day');
                 }
                 else{
                     this.setState({
@@ -50,9 +37,6 @@ class Login extends Component {
     }
 
     render() {
-        if (this.state.url === 'danh-sach-giang-day') {
-            return <Redirect to='danh-sach-giang-day' />
-        }
         return (
             <div className="container" style={{ width: '60%' }}>
                 <div className="row">
