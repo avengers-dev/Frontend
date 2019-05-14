@@ -31,9 +31,9 @@ class DanhSachCa extends Component {
         const ca = e.target.dataset.id;
         axios.post('http://localhost:8000/api/getDanhSachSinhVien',obj)
         .then(result => {
-            localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(result.data));
+            localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(result.data.data));
             this.props.dispatch({type:'CHOOSE_CA_AND_GET_DS',
-                data : {ca : ca , danh_sach_sinh_vien :  result.data }
+                data : {ca : ca , danh_sach_sinh_vien :  result.data.data }
             });
         })
         .then(() => {

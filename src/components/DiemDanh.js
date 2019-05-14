@@ -18,7 +18,7 @@ class DiemDanh extends Component {
         var array_checked = document.getElementsByClassName('check_box');
         var array =[];
         for(let i=0 ; i < array_checked.length ; i++){
-            if(array_checked[i].checked == true){
+            if(array_checked[i].checked === true){
                 array.push(1);
             }
             else{
