@@ -5,13 +5,28 @@ class DiemDanh extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            danh_sv : []
+            danhsach_sv : [],
+            
         }
     }
     componentWillMount() {
         this.setState({
-            danhsach_sv : this.props
+            danhsach_sv : this.props.danhsach_sv
         });
+    }
+    LuuLai = () => {
+        var array_checked = document.getElementsByClassName('check_box');
+        var array =[];
+        for(let i=0 ; i < array_checked.length ; i++){
+            if(array_checked[i].checked == true){
+                array.push(1);
+            }
+            else{
+                array.push(0);
+            }
+        }
+
+        console.log(array);
     }
     render() {
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
@@ -24,6 +39,7 @@ class DiemDanh extends Component {
         }else{ 
             ds_sinhvien = JSON.parse(localStorage.getItem('danh_sach_sinh_vien'));
         }
+        
         var sinhvien = ds_sinhvien.map((item,index )=> {
             return (
                 <tr key={index}>
@@ -32,8 +48,8 @@ class DiemDanh extends Component {
                     <td >{item.tensv}</td>
                     <td>
                         <div className="custom-control custom-switch">
-                            <input type="checkbox" className="custom-control-input" />
-                            <label className="custom-control-label" />
+                            <input className='check_box' name="array_check" type="checkbox" /*className="custom-control-input"*/ />
+                            {/* <label className="custom-control-label" /> */}
                         </div>
                     </td>
                 </tr>
@@ -57,7 +73,7 @@ class DiemDanh extends Component {
                         {sinhvien}
                     </tbody>
                 </table>
-                <button type="button" className="btn btn-outline-success"> Lưu Lại</button>
+                <button onClick={this.LuuLai} type="button" className="btn btn-outline-success"> Lưu Lại</button>
                 <button onClick={this.onClick} type="button" className="btn btn-outline-danger" style={{ marginLeft: '10px' }}>Huỷ bỏ</button>
             </div>
         );

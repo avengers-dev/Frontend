@@ -20,19 +20,15 @@ class DanhSachCa extends Component {
         })
     }
     onClick = (e) => {
+        
         var  ds_sinhvien_lop = [];
-        Object.keys(this.state.ds_giang_day).forEach((item) => {
-            if(Number(item) === Number(e.target.dataset.id)){
-                return ds_sinhvien_lop.push(this.state.ds_giang_day[item]);
-            }
-        })
+        ds_sinhvien_lop.push(this.state.ds_giang_day[e.target.dataset.id]);
         var token_giangvien = JSON.parse(sessionStorage.getItem('token_giang_vien'));
         var obj = {
             token : token_giangvien,
             ca : ds_sinhvien_lop[0]
         }
         const ca = e.target.dataset.id;
-        
         axios.post('http://localhost:8000/api/getDanhSachSinhVien',obj)
         .then(result => {
             localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(result.data));
@@ -49,7 +45,6 @@ class DanhSachCa extends Component {
         history.push('diem-danh');
     }
     render() {
-        
         var { mang_ca } = this.state;
         var div_ca = mang_ca.map((item, index) => {
             return (
