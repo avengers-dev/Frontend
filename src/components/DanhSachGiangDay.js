@@ -6,8 +6,15 @@ class DanhSachGiangDay extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isClickCa : false
+            isClickCa : false,
+            ds_mon_hoc : []
         }
+    }
+    
+    componentWillMount() {
+        this.setState({
+            ds_mon_hoc : this.props.ds_mon_hoc
+        })
     }
     
     onClick = (e) => {
@@ -28,6 +35,15 @@ class DanhSachGiangDay extends Component {
         history.push('danh-sach-ca');   
 
     }
+    
+    change_mamh_to_tenmh = (i) => {
+        var {ds_mon_hoc} = this.state;
+        var result = ds_mon_hoc.map(item => {
+            if( i === item.mamh)
+                return item.tenmh;
+        })
+        return result;
+    }
     render() {
         if(this.state.isClickCa === true){
             return <Redirect from='danh-sach-giang-day' to='danh-sach-ca' />
@@ -46,7 +62,8 @@ class DanhSachGiangDay extends Component {
                         <div key={i} className="col-sm-6">
                             <div className="card bg-light">
                                 <div className="card-body">
-                                    <h5 className="card-title"> {i}</h5>
+                                    <h5 className="card-title"> 
+                                    { this.change_mamh_to_tenmh(i) }</h5>
                                     <p className="card-text">Ca dạy : {Object.keys(data_giang_day[item][i]).join(',')}
                                     </p>
                                     <button 
@@ -83,6 +100,7 @@ class DanhSachGiangDay extends Component {
 }
 const mapStateToProps = (state) => {
     return {  
+        ds_mon_hoc : state.ds_mon_hoc
     }
 }
 export default connect(mapStateToProps)(DanhSachGiangDay);

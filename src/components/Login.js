@@ -12,6 +12,12 @@ class Login extends Component {
             isLogin: false
         }
     }
+    
+    componentWillMount() {
+        axios.get('http://localhost:8000/api/getAllMonHoc')
+        .then(result => this.props.dispatch({type:'GET_ALL_DS_TEN_MON_HOC',data : result.data.data}))
+    }
+    
     onChange = (e) => {
         this.setState({
             [e.target.name]: e.target.value
