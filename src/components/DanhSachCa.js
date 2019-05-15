@@ -9,21 +9,18 @@ class DanhSachCa extends Component {
         this.state = {
             mang_ca : [],
             isChooseCa :false,
-            ds_giang_day : [],
-            ds_mon_hoc : [],
-            ma_mh : ''
+            ds_giang_day : []
         }
     }
     
     componentWillMount() {
         this.setState({
             mang_ca : this.props.mang_ca,
-            ds_giang_day : this.props.ds_giang_day,
-            ds_mon_hoc : this.props.ds_mon_hoc,
-            ma_mh : JSON.parse(sessionStorage.getItem('chon_mon_hoc'))
+            ds_giang_day : this.props.ds_giang_day
         })
     }
     onClick = (e) => {
+        
         var  ds_sinhvien_lop = [];
         ds_sinhvien_lop.push(this.state.ds_giang_day[e.target.dataset.id]);
         var token_giangvien = JSON.parse(sessionStorage.getItem('token_giang_vien'));
@@ -48,11 +45,7 @@ class DanhSachCa extends Component {
         history.push('diem-danh');
     }
     render() {
-        var { mang_ca , ma_mh , ds_mon_hoc } = this.state;
-        var monhoc = ds_mon_hoc.map(item => {
-            if(item.mamh === ma_mh)
-                return item.tenmh;
-        })
+        var { mang_ca } = this.state;
         var div_ca = mang_ca.map((item, index) => {
             return (
                 <div key={index} className="col-sm-6">
@@ -76,7 +69,7 @@ class DanhSachCa extends Component {
                     </div>
                 </div>
                 <div className="alert alert-primary" role="alert">
-                    Môn : { monhoc }
+                    Môn : {JSON.parse(sessionStorage.getItem('chon_mon_hoc'))}
                 </div>
                 <div className="row abc">
                     {div_ca}
@@ -88,8 +81,7 @@ class DanhSachCa extends Component {
 const mapStateToProps = (state) => {
     return {
         ds_giang_day: state.ds_giang_day,
-        mang_ca: state.mang_ca,
-        ds_mon_hoc : state.ds_mon_hoc
+        mang_ca: state.mang_ca
     }
 }
 export default connect(mapStateToProps)(DanhSachCa);
