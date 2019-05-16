@@ -25,8 +25,17 @@ class DiemDanh extends Component {
                 array.push(0);
             }
         }
+        var danhsach_sv = JSON.parse(localStorage.getItem('danh_sach_sinh_vien')) ;
+        for(let i=0 ; i < danhsach_sv.length ; i++){
+            danhsach_sv[i].check = array[i];
+        }
+        var obj = {
+            ma_mh : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
+            token_giang_vien : JSON.parse(sessionStorage.getItem('token_giang_vien')),
+            danhsach_sv_diemdanh : danhsach_sv
+        }
+        console.log(obj);
 
-        console.log(array);
     }
     render() {
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
