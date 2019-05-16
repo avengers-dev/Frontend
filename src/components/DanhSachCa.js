@@ -52,6 +52,7 @@ class DanhSachCa extends Component {
         var monhoc = ds_mon_hoc.map(item => {
             if(item.mamh === ma_mh)
                 return item.tenmh;
+            return true;
         })
         var div_ca = mang_ca.map((item, index) => {
             return (

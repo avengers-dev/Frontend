@@ -43,8 +43,11 @@ class Login extends Component {
                 }
                 else {
                     this.setState({
-                        login_fail: true
+                        login_fail: true,
+                        email: '',
+                        matkhau: '',
                     });
+                    document.getElementById('email').focus()
                 }
             });
         this.props.dispatch({
@@ -83,7 +86,7 @@ class Login extends Component {
                                 <div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput" >Email</label>
-                                        <input type="email" value={this.state.email} onChange={this.onChange} name="email" className="form-control" />
+                                        <input id="email" type="email" value={this.state.email} onChange={this.onChange} name="email" className="form-control" />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="formGroupExampleInput2">Mật Khẩu</label>

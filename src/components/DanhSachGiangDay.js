@@ -41,16 +41,17 @@ class DanhSachGiangDay extends Component {
         var result = ds_mon_hoc.map(item => {
             if( i === item.mamh)
                 return item.tenmh;
+            return true;
         })
         return result;
     }
     render() {
         if(this.state.isClickCa === true){
-            return <Redirect from='danh-sach-giang-day' to='danh-sach-ca' />
+            return <Redirect from='danh-sach-giang-day' to='danh-sach-ca' />;
         }
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
         if(ten_giang_vien === null){
-            return <Redirect to='/'/>
+            return <Redirect  to='/' />;
         }
         var data_giang_day = JSON.parse(localStorage.getItem('danh_sach_giang_day'));
         var date = new Date();
@@ -78,6 +79,7 @@ class DanhSachGiangDay extends Component {
                     );
                 }));
             }
+            return true;
         });
         return (
             <div className="container" style={{ width: '60%' }}>
