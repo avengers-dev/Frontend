@@ -30,9 +30,9 @@ class DiemDanh extends Component {
             danhsach_sv[i].check = array[i];
         }
         var obj = {
-            ma_mh : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
-            token_giang_vien : JSON.parse(sessionStorage.getItem('token_giang_vien')),
-            danhsach_sv_diemdanh : danhsach_sv
+            mamh : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
+            token : JSON.parse(sessionStorage.getItem('token_giang_vien')),
+            danhsachsvdiemdanh : danhsach_sv
         }
         console.log(obj);
 
