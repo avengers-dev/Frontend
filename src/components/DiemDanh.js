@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from 'axios';
 class DiemDanh extends Component {
     constructor(props) {
         super(props);
@@ -25,17 +26,25 @@ class DiemDanh extends Component {
                 array.push(0);
             }
         }
+        var data_danhsachsv = [];
         var danhsach_sv = JSON.parse(localStorage.getItem('danh_sach_sinh_vien')) ;
         for(let i=0 ; i < danhsach_sv.length ; i++){
             danhsach_sv[i].check = array[i];
+            var ob = {
+                'tensv' : danhsach_sv[i].tensv,
+                'masv'  : danhsach_sv[i].masv,
+                'check'  : danhsach_sv[i].check,
+            };
+            data_danhsachsv.push(ob);
         }
         var obj = {
             mamh : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
             token : JSON.parse(sessionStorage.getItem('token_giang_vien')),
-            danhsachsvdiemdanh : danhsach_sv
-        }
-        console.log(obj);
-
+            ca : JSON.parse(sessionStorage.getItem('ca')),
+            danhsachsvdiemdanh : data_danhsachsv
+        };
+        axios.post('http://localhost:8000/api/getDanhSachSinhVienDiemDanh',obj)
+        .then(res => console.log(res.data));
     }
     render() {
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));

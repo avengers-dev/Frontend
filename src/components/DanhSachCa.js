@@ -25,6 +25,7 @@ class DanhSachCa extends Component {
     }
     onClick = (e) => {
         var  ds_sinhvien_lop = [];
+        sessionStorage.setItem('ca',JSON.stringify(e.target.dataset.id));
         ds_sinhvien_lop.push(this.state.ds_giang_day[e.target.dataset.id]);
         var token_giangvien = JSON.parse(sessionStorage.getItem('token_giang_vien'));
         var obj = {
