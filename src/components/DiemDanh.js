@@ -43,7 +43,7 @@ class DiemDanh extends Component {
             ca : JSON.parse(sessionStorage.getItem('ca')),
             danhsachsvdiemdanh : data_danhsachsv
         };
-        axios.post('http://localhost:8000/api/getDanhSachSinhVienDiemDanh',obj)
+        axios.post('http://localhost:8000/api/updateOrInsertDanhSachSinhVien',obj)
         .then(res => console.log(res.data));
     }
     render() {
@@ -66,7 +66,7 @@ class DiemDanh extends Component {
                     <td >{item.tensv}</td>
                     <td>
                         <div className="custom-control custom-switch">
-                            <input className='check_box' name="array_check" type="checkbox" /*className="custom-control-input"*/ />
+                            <input className='check_box' defaultChecked name="array_check" type="checkbox" /*className="custom-control-input"*/ />
                             {/* <label className="custom-control-label" /> */}
                         </div>
                     </td>

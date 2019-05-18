@@ -32,12 +32,12 @@ class DanhSachCa extends Component {
             token : token_giangvien,
             ca : ds_sinhvien_lop[0]
         }
-        const ca = e.target.dataset.id;
+        const choose_ca = e.target.dataset.id;
         axios.post('http://localhost:8000/api/getDanhSachSinhVien',obj)
         .then(result => {
             localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(result.data.data));
             this.props.dispatch({type:'CHOOSE_CA_AND_GET_DS',
-                data : {ca : ca , danh_sach_sinh_vien :  result.data.data }
+                data : {ca : choose_ca , danh_sach_sinh_vien :  result.data.data }
             });
         })
         .then(() => {
