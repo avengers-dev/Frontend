@@ -63,7 +63,6 @@ class DiemDanh extends Component {
             return <Redirect to='/danh-sach-ca' />
         }
         var ds_sinhvien = [];
-        console.log(this.props.danh_sach_sinhvien_check);
         if(this.props.danh_sach_sinhvien_check.length > 0 ){
             ds_sinhvien = localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(this.props.danh_sach_sinhvien_check));
             ds_sinhvien = this.props.danh_sach_sinhvien_check;
