@@ -45,7 +45,7 @@ class DiemDanh extends Component {
             ca : JSON.parse(sessionStorage.getItem('ca')),
             danhsachsvdiemdanh : data_danhsachsv
         };
-        axios.post('http://localhost:8000/api/updateOrInsertDanhSachSinhVien',obj)
+        axios.post('http://localhost:8000/api/saveDanhSachSinhVien',obj)
         .then(res => console.log(res.data))
         .then(()=> {
             if(!this.state.isCheck)

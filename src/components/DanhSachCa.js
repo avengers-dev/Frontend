@@ -27,7 +27,7 @@ class DanhSachCa extends Component {
             "token" : token_giangvien,
             "ca"    : e.target.dataset.id
         }
-        axios.post('http://localhost:8000/api/getDanhSachSinhVienhCheck',obj_check)
+        axios.post('http://localhost:8000/api/getDanhSachSinhVienCheck',obj_check)
         .then(result => this.props.dispatch({type:'GET_DANH_SACH_SINHVIEN_CHECK',data:result.data.data}))
         var obj = {
             token : token_giangvien,
