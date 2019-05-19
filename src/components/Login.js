@@ -15,7 +15,10 @@ class Login extends Component {
     
     componentWillMount() {
         axios.get('http://localhost:8000/api/getAllMonHoc')
-        .then(result => this.props.dispatch({type:'GET_ALL_DS_TEN_MON_HOC',data : result.data.data}))
+        .then(result => {
+            sessionStorage.setItem('ds_mon_hoc',JSON.stringify(result.data.data))
+            this.props.dispatch({type:'GET_ALL_DS_TEN_MON_HOC',data : result.data.data})
+        })
     }
     
     onChange = (e) => {

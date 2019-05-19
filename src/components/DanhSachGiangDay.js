@@ -14,18 +14,20 @@ class DanhSachGiangDay extends Component {
     componentWillMount() {
         this.setState({
             ds_mon_hoc : this.props.ds_mon_hoc
-        })
+        });
+        
     }
     
     onClick = (e) => {
-        var mang_ca = e.target.dataset.ca;
+        var mang_ca = e.target.dataset.mang_ca;
         var ds_giang_day = JSON.parse(e.target.dataset.danh_sach_ca);
         
         var obj = {
             mang_ca : mang_ca.split(','),
             ds_giang_day : ds_giang_day
         };
-        
+        sessionStorage.setItem('chon_ten_mon_hoc',JSON.stringify(e.target.dataset.ten_mon_hoc));
+        sessionStorage.setItem('mang_ca',JSON.stringify(mang_ca.split(',')));
         sessionStorage.setItem('chon_mon_hoc',JSON.stringify(e.target.dataset.monhoc));
         this.props.dispatch({type:'AD_DS_GIANG_DAY_AND_CA',data : obj});
         
@@ -36,13 +38,18 @@ class DanhSachGiangDay extends Component {
 
     }
     
-    change_mamh_to_tenmh = (i) => {
+    change_mamh_to_tenmh = (mamh) => {
         var {ds_mon_hoc} = this.state;
-        var result = ds_mon_hoc.map(item => {
-            if( i === item.mamh)
-                return item.tenmh;
-            return true;
-        })
+        if(ds_mon_hoc.length === 0){
+            ds_mon_hoc = JSON.parse(sessionStorage.getItem('ds_mon_hoc'));
+        }
+        var result = '';
+        for(let i = 0 ; i < ds_mon_hoc.length ; i++){
+            if(ds_mon_hoc[i].mamh === mamh){
+                result = ds_mon_hoc[i].tenmh;
+                break;
+            }
+        }
         return result;
     }
     render() {
@@ -69,9 +76,10 @@ class DanhSachGiangDay extends Component {
                                     </p>
                                     <button 
                                     onClick={this.onClick}
+                                    data-ten_mon_hoc={this.change_mamh_to_tenmh(i)}
                                     data-monhoc={i}
                                     data-danh_sach_ca={JSON.stringify(data_giang_day[item][i])}
-                                    data-ca={Object.keys(data_giang_day[item][i])}
+                                    data-mang_ca={Object.keys(data_giang_day[item][i])}
                                     className="btn btn-primary">Điểm danh</button>
                                 </div>
                             </div>  

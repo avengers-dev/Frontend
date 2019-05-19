@@ -4,7 +4,8 @@ var DefaultState  = {
     mang_ca : [],
     ca : 0,
     danh_sach_sinh_vien : [],
-    ds_mon_hoc : []
+    danh_sach_sinhvien_check : [],
+    ds_mon_hoc : [],
     
 };
 
@@ -22,6 +23,9 @@ const Reducer = (state = DefaultState ,  action) => {
         case 'AD_DS_GIANG_DAY_AND_CA' : 
             state.ds_giang_day = action.data.ds_giang_day;
             state.mang_ca = action.data.mang_ca;
+            return {...state};
+        case 'GET_DANH_SACH_SINHVIEN_CHECK':
+            state.danh_sach_sinhvien_check = action.data;
             return {...state};
         default:
             break;

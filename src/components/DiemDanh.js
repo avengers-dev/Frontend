@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import history from './history';
 class DiemDanh extends Component {
     constructor(props) {
         super(props);
         this.state = {
             danhsach_sv : [],
+            isCheck : false
             
         }
     }
@@ -44,20 +46,36 @@ class DiemDanh extends Component {
             danhsachsvdiemdanh : data_danhsachsv
         };
         axios.post('http://localhost:8000/api/updateOrInsertDanhSachSinhVien',obj)
-        .then(res => console.log(res.data));
+        .then(res => console.log(res.data))
+        .then(()=> {
+            if(!this.state.isCheck)
+                this.setState({isCheck:true})
+        });
+
+        history.push('danh-sach-ca');
     }
     render() {
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
         if (ten_giang_vien === null) {
             return <Redirect to='/' />
         }
-        var ds_sinhvien = [];
-        if(this.props.danhsach_sv.length > 0){ 
-            ds_sinhvien = this.props.danhsach_sv;
-        }else{ 
-            ds_sinhvien = JSON.parse(localStorage.getItem('danh_sach_sinh_vien'));
+        if (this.state.isCheck === true) {
+            return <Redirect to='/danh-sach-ca' />
         }
-        
+        var ds_sinhvien = [];
+        console.log(this.props.danh_sach_sinhvien_check);
+        if(this.props.danh_sach_sinhvien_check.length > 0 ){
+            ds_sinhvien = localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(this.props.danh_sach_sinhvien_check));
+            ds_sinhvien = this.props.danh_sach_sinhvien_check;
+        }
+        else{
+            if(this.props.danhsach_sv.length > 0){ 
+                ds_sinhvien = this.props.danhsach_sv;
+            }
+            else{ 
+                ds_sinhvien = JSON.parse(localStorage.getItem('danh_sach_sinh_vien'));
+            }
+        }
         var sinhvien = ds_sinhvien.map((item,index )=> {
             return (
                 <tr key={index}>
@@ -66,8 +84,8 @@ class DiemDanh extends Component {
                     <td >{item.tensv}</td>
                     <td>
                         <div className="custom-control custom-switch">
-                            <input className='check_box' defaultChecked name="array_check" type="checkbox" /*className="custom-control-input"*/ />
-                            {/* <label className="custom-control-label" /> */}
+                            <input className='check_box' defaultChecked={item.check === 1 ? 'checked' : ''} name="array_check" type="checkbox" />
+                            
                         </div>
                     </td>
                 </tr>
@@ -99,7 +117,8 @@ class DiemDanh extends Component {
 }
 const mapStateToProps = (state) => {
     return  {
-        danhsach_sv : state.danh_sach_sinh_vien
+        danhsach_sv : state.danh_sach_sinh_vien,
+        danh_sach_sinhvien_check : state.danh_sach_sinhvien_check
     };
 }
 export default connect(mapStateToProps)(DiemDanh);

@@ -7,20 +7,14 @@ class DanhSachCa extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mang_ca : [],
             isChooseCa :false,
             ds_giang_day : [],
-            ds_mon_hoc : [],
-            ma_mh : ''
         }
     }
     
     componentWillMount() {
         this.setState({
-            mang_ca : this.props.mang_ca,
             ds_giang_day : this.props.ds_giang_day,
-            ds_mon_hoc : this.props.ds_mon_hoc,
-            ma_mh : JSON.parse(sessionStorage.getItem('chon_mon_hoc'))
         })
     }
     onClick = (e) => {
@@ -28,6 +22,13 @@ class DanhSachCa extends Component {
         sessionStorage.setItem('ca',JSON.stringify(e.target.dataset.id));
         ds_sinhvien_lop.push(this.state.ds_giang_day[e.target.dataset.id]);
         var token_giangvien = JSON.parse(sessionStorage.getItem('token_giang_vien'));
+        var obj_check = {
+            "mamh" : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
+            "token" : token_giangvien,
+            "ca"    : e.target.dataset.id
+        }
+        axios.post('http://localhost:8000/api/getDanhSachSinhVienhCheck',obj_check)
+        .then(result => this.props.dispatch({type:'GET_DANH_SACH_SINHVIEN_CHECK',data:result.data.data}))
         var obj = {
             token : token_giangvien,
             ca : ds_sinhvien_lop[0]
@@ -35,9 +36,13 @@ class DanhSachCa extends Component {
         const choose_ca = e.target.dataset.id;
         axios.post('http://localhost:8000/api/getDanhSachSinhVien',obj)
         .then(result => {
-            localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(result.data.data));
+            var data = result.data.data;
+            for(let i = 0 ; i < data.length ; i++){
+                data[i].check = 0;
+            }
+            localStorage.setItem('danh_sach_sinh_vien',JSON.stringify(data));
             this.props.dispatch({type:'CHOOSE_CA_AND_GET_DS',
-                data : {ca : choose_ca , danh_sach_sinh_vien :  result.data.data }
+                data : {ca : choose_ca , danh_sach_sinh_vien : data }
             });
         })
         .then(() => {
@@ -49,12 +54,13 @@ class DanhSachCa extends Component {
         history.push('diem-danh');
     }
     render() {
-        var { mang_ca , ma_mh , ds_mon_hoc } = this.state;
-        var monhoc = ds_mon_hoc.map(item => {
-            if(item.mamh === ma_mh)
-                return item.tenmh;
-            return true;
-        })
+        var mang_ca = [];
+        if(this.props.mang_ca.length > 0){
+            mang_ca = this.props.mang_ca;
+        }
+        else{
+            mang_ca = JSON.parse(sessionStorage.getItem('mang_ca'));
+        } 
         var div_ca = mang_ca.map((item, index) => {
             return (
                 <div key={index} className="col-sm-6">
@@ -78,7 +84,7 @@ class DanhSachCa extends Component {
                     </div>
                 </div>
                 <div className="alert alert-primary" role="alert">
-                    Môn : { monhoc }
+                    Môn : { JSON.parse(sessionStorage.getItem('chon_ten_mon_hoc')) }
                 </div>
                 <div className="row abc">
                     {div_ca}
