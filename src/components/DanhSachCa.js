@@ -9,6 +9,7 @@ class DanhSachCa extends Component {
         this.state = {
             isChooseCa :false,
             ds_giang_day : [],
+            is_login : true
         }
     }
     
@@ -53,7 +54,19 @@ class DanhSachCa extends Component {
         .catch(err => console.log(err));
         history.push('diem-danh');
     }
+    onClickLogOut = () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        history.push('/');
+        this.setState({
+            is_login : false
+        })
+    }
     render() {
+        var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
+        if(ten_giang_vien === null || this.state.is_login === false){
+            return <Redirect  to='/' />;
+        }
         var mang_ca = [];
         if(this.props.mang_ca.length > 0){
             mang_ca = this.props.mang_ca;
@@ -85,6 +98,7 @@ class DanhSachCa extends Component {
                 </div>
                 <div className="alert alert-primary" role="alert">
                     Môn : { JSON.parse(sessionStorage.getItem('chon_ten_mon_hoc')) }
+                    <button onClick={this.onClickLogOut} style={{marginLeft:'70%'}} className="btn btn-primary">Logout</button>
                 </div>
                 <div className="row abc">
                     {div_ca}

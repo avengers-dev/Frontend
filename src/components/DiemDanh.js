@@ -8,7 +8,8 @@ class DiemDanh extends Component {
         super(props);
         this.state = {
             danhsach_sv : [],
-            isCheck : false
+            isCheck : false,
+            check_button_huy : false
             
         }
     }
@@ -54,12 +55,18 @@ class DiemDanh extends Component {
 
         history.push('danh-sach-ca');
     }
+    Huy = () => {
+        history.push('danh-sach-ca');
+        this.setState({
+            check_button_huy : true
+        });
+    }
     render() {
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
         if (ten_giang_vien === null) {
             return <Redirect to='/' />
         }
-        if (this.state.isCheck === true) {
+        if (this.state.isCheck === true || this.state.check_button_huy === true) {
             return <Redirect to='/danh-sach-ca' />
         }
         var ds_sinhvien = [];
@@ -109,7 +116,7 @@ class DiemDanh extends Component {
                     </tbody>
                 </table>
                 <button onClick={this.LuuLai} type="button" className="btn btn-outline-success"> Lưu Lại</button>
-                <button onClick={this.onClick} type="button" className="btn btn-outline-danger" style={{ marginLeft: '10px' }}>Huỷ bỏ</button>
+                <button onClick={this.Huy} type="button" className="btn btn-outline-danger" style={{ marginLeft: '10px' }}>Huỷ bỏ</button>
             </div>
         );
     }

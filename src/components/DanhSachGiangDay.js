@@ -7,7 +7,8 @@ class DanhSachGiangDay extends Component {
         super(props);
         this.state = {
             isClickCa : false,
-            ds_mon_hoc : []
+            ds_mon_hoc : [],
+            is_login : true
         }
     }
     
@@ -52,12 +53,20 @@ class DanhSachGiangDay extends Component {
         }
         return result;
     }
+    onClickLogOut = () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        history.push('/');
+        this.setState({
+            is_login : false
+        })
+    }
     render() {
         if(this.state.isClickCa === true){
             return <Redirect from='danh-sach-giang-day' to='danh-sach-ca' />;
         }
         var ten_giang_vien = JSON.parse(sessionStorage.getItem('tengiangvien'));
-        if(ten_giang_vien === null){
+        if(ten_giang_vien === null || this.state.is_login === false){
             return <Redirect  to='/' />;
         }
         var data_giang_day = JSON.parse(localStorage.getItem('danh_sach_giang_day'));
@@ -100,6 +109,7 @@ class DanhSachGiangDay extends Component {
                     Giáo viên thực hiện: {sessionStorage.getItem('tengiangvien') !== '' ?
                         JSON.parse(sessionStorage.getItem('tengiangvien')) : ''
                     }
+                    <button onClick={this.onClickLogOut} style={{marginLeft:'60%'}} className="btn btn-primary">Logout</button>
                 </div>
                 <div className="row">
                     {ds_giang_day}
