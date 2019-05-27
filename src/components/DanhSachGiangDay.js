@@ -105,11 +105,11 @@ class DanhSachGiangDay extends Component {
                         <img src="images/logo-itc.png" width="100%" alt="" className="img-fluid" />
                     </div>
                 </div>
-                <div className="alert alert-primary" role="alert">
+                <div  className="alert alert-primary" style={{position:'relative'}} role="alert">
                     Giáo viên thực hiện: {sessionStorage.getItem('tengiangvien') !== '' ?
                         JSON.parse(sessionStorage.getItem('tengiangvien')) : ''
                     }
-                    <button onClick={this.onClickLogOut} style={{marginLeft:'60%'}} className="btn btn-primary">Logout</button>
+                    <button style={{position:'absolute',top:'10%',right:'1%'}} onClick={this.onClickLogOut} className="btn btn-primary">Logout</button>
                 </div>
                 <div className="row">
                     {ds_giang_day}

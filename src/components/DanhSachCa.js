@@ -96,9 +96,9 @@ class DanhSachCa extends Component {
                         <img src="images/logo-itc.png" width="100%" alt="" className="img-fluid" />
                     </div>
                 </div>
-                <div className="alert alert-primary" role="alert">
+                <div style={{position:'relative'}} className="alert alert-primary" role="alert">
                     Môn : { JSON.parse(sessionStorage.getItem('chon_ten_mon_hoc')) }
-                    <button onClick={this.onClickLogOut} style={{marginLeft:'70%'}} className="btn btn-primary">Logout</button>
+                    <button style={{position:'absolute',top:'10%',right:'1%'}} onClick={this.onClickLogOut} className="btn btn-primary">Logout</button>
                 </div>
                 <div className="row abc">
                     {div_ca}
