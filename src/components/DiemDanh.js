@@ -30,24 +30,30 @@ class DiemDanh extends Component {
             }
         }
         var data_danhsachsv = [];
-        var danhsach_sv = JSON.parse(localStorage.getItem('danh_sach_sinh_vien')) ;
+        var danhsach_sv = JSON.parse(localStorage.getItem('danh_sach_sinh_vien'));
         for(let i=0 ; i < danhsach_sv.length ; i++){
             danhsach_sv[i].check = array[i];
             var ob = {
                 'tensv' : danhsach_sv[i].tensv,
                 'masv'  : danhsach_sv[i].masv,
-                'check'  : danhsach_sv[i].check,
+                'check' : danhsach_sv[i].check,
+                'malop' : danhsach_sv[i].malop
             };
             data_danhsachsv.push(ob);
         }
-        var obj = {
+        var obj_diemdanh = {
             mamh : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
             token : JSON.parse(sessionStorage.getItem('token_giang_vien')),
             ca : JSON.parse(sessionStorage.getItem('ca')),
             danhsachsvdiemdanh : data_danhsachsv
         };
-        axios.post('http://localhost:8000/api/saveDanhSachSinhVien',obj)
-        .then(res => console.log(res.data))
+        var obj_viphams = {
+            mamh : JSON.parse(sessionStorage.getItem('chon_mon_hoc')),
+            token : JSON.parse(sessionStorage.getItem('token_giang_vien')),
+            danhsachsvdiemdanh : data_danhsachsv
+        }
+        axios.post('http://localhost:8000/api/saveDanhSachViPham',obj_viphams);
+        axios.post('http://localhost:8000/api/saveDanhSachSinhVien',obj_diemdanh)
         .then(()=> {
             if(!this.state.isCheck)
                 this.setState({isCheck:true})
