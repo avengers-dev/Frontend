@@ -59,10 +59,10 @@ class DiemDanh extends Component {
                 this.setState({isCheck:true})
         });
 
-        history.push('danh-sach-ca');
+        history.push('danh-sach-giang-day');
     }
     Huy = () => {
-        history.push('danh-sach-ca');
+        history.push('danh-sach-giang-day');
         this.setState({
             check_button_huy : true
         });
@@ -73,7 +73,7 @@ class DiemDanh extends Component {
             return <Redirect to='/' />
         }
         if (this.state.isCheck === true || this.state.check_button_huy === true) {
-            return <Redirect to='/danh-sach-ca' />
+            return <Redirect to='/danh-sach-giang-day' />
         }
         var ds_sinhvien = [];
         if(this.props.danh_sach_sinhvien_check.length > 0 ){
