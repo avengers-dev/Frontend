@@ -35,9 +35,11 @@ class DiemDanh extends Component {
             danhsach_sv[i].check = array[i];
             var ob = {
                 'tensv' : danhsach_sv[i].tensv,
+                'sdt'   : danhsach_sv[i].sdt,
                 'masv'  : danhsach_sv[i].masv,
                 'check' : danhsach_sv[i].check,
-                'malop' : danhsach_sv[i].malop
+                'malop' : danhsach_sv[i].malop,
+                'hosv'  : danhsach_sv[i].hosv
             };
             data_danhsachsv.push(ob);
         }
