@@ -36,9 +36,10 @@ class Login extends Component {
             .then(result => {
 
                 if (result.data.status === 200) {
+                    var hotengv = result.data.data[0]['hogv'] + " " + result.data.data[0]['tengv'];
                     localStorage.setItem('danh_sach_giang_day', JSON.stringify(result.data.data[0]['monday']));
                     sessionStorage.setItem('token_giang_vien', JSON.stringify(result.data.data[0]['token']));
-                    sessionStorage.setItem('tengiangvien', JSON.stringify(result.data.data[0]['hoten']));
+                    sessionStorage.setItem('tengiangvien', JSON.stringify(hotengv));
                     this.props.dispatch({ type: 'LOGIN', isLogin: 1 })
                     this.setState({
                         isLogin: true
